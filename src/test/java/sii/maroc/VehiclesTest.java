@@ -1,10 +1,10 @@
 package sii.maroc;
 
-import java.io.StringWriter;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import sii.maroc.business.Vehicles;
 
 /************
          _
