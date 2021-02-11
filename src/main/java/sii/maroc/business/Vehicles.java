@@ -27,17 +27,28 @@ public class Vehicles {
 		DecimalFormat format = new DecimalFormat("#.00");
 
 		if (carName.equals("CAR")) {
-			if (vehicle.getDoors().contains(1) && vehicle.getDoors().contains(2) && vehicle.getDoors().contains(3)
-					&& vehicle.getDoors().contains(4)) {
-
-				System.out.println("works !");
+			if (carHasAllDoors(vehicle)) {
 				return "DOORS OK, MOVING. The CAR will consume " + format.format(calculConsumption(distance, fuelType))
 						+ " L";
+			}
+			
+			if (carHasNotSecondDoor(vehicle)) {
+				return "DOORS KO, BLOCKED \n"+
+                        "  _\n"+
+                        " | \\\n"+
+                        " |_|";
+			}
+			
+			if (carHasNotThirdDoor(vehicle)) {
+				return "DOORS KO, BLOCKED \n"+
+                        "  _\n"+
+                        " | |\n"+
+                        " /_|";
 			}
 		}
 
 		if (carName.equals("TRUCK")) {
-			if (vehicle.getDoors().contains(1) && vehicle.getDoors().contains(2)) {
+			if (truckHasAllDoors(vehicle)) {
 
 				return "DOORS OK, MOVING. The TRUCK will consume "
 						+ format.format(calculConsumption(distance, fuelType)) + " L";
@@ -46,7 +57,8 @@ public class Vehicles {
 
 		if (carName.equals("MOTORCYCLE")) {
 
-			return "DOORS OK, MOVING. The MOTORCYCLE will consume 3.00 L";
+			return "DOORS OK, MOVING. The MOTORCYCLE will consume "
+					+ format.format(calculConsumption(distance, fuelType)) + " L";
 
 		}
 
@@ -60,7 +72,6 @@ public class Vehicles {
 
 		if (doors.length() > 0) {
 			String[] splitedDoors = doors.split(" ");
-
 			for (int i = 0; i < splitedDoors.length; i++) {
 				vehicle.addDoor(Integer.parseInt(splitedDoors[i]));
 			}	
@@ -81,5 +92,38 @@ public class Vehicles {
 
 		return (distance * 10) * (doublePercentage * 0.1) / 100;
 	}
+	
+	
+	public boolean carHasAllDoors(Vehicle vehicle) {
+		if (vehicle.getDoors().contains(1) && vehicle.getDoors().contains(2) && vehicle.getDoors().contains(3)
+				&& vehicle.getDoors().contains(4)) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean truckHasAllDoors(Vehicle vehicle) {
+		if (vehicle.getDoors().contains(1) && vehicle.getDoors().contains(2)) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean carHasNotSecondDoor(Vehicle vehicle) {
+		if (vehicle.getDoors().contains(2)) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean carHasNotThirdDoor(Vehicle vehicle) {
+		if (vehicle.getDoors().contains(3)) {
+			return false;
+		}
+		return true;
+	}
+	
 
 }
